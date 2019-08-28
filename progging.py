@@ -4,3 +4,8 @@ for i in range n:
     print(g)
 
 print("Hello World!")
+
+s = 2
+r = 500
+
+print(s*r)
