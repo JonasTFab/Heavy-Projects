@@ -26,22 +26,48 @@ def array(n):
         except:
             sys.exit("ERROR! You must insert a legal letter or integer.")
     return arr
-a = array(n)
-b = array(n)
-c = array(n)
 
 # total 3 flops making the arrays
 #a = np.ones(n)*float(input("Values of vector a (diagonal): "))
 #b = np.ones(n)*float(input("Values of vector b (below diagonal): "))
 #c = np.ones(n)*float(input("Values of vector c (over diagonal): "))
-d = np.ones(n)
-l = np.ones(n)
-u = np.ones(n)
-y = np.zeros(n)
-v = np.zeros(n)
+#d = np.ones(n)
 
+####   Initilize vectors   ####
+a = array(n)
+b = array(n)
+c = array(n)
+u = np.zeros(n)
+b_temp = np.zeros(n)
+q_temp = np.zeros(n)
+
+####    step 2 (forward substitution)   ####
 t0 = time.time()
-####    step 1 (decomposition)   ####
+
+b_temp[0] = b[0]
+q_temp[0] = q[0]
+for i in range(1,n):
+    b_temp[i] = b[i] - a[i]*c[i-1]/b_temp[i-1]
+    q_temp[i] = q[i]-a[i]*q_temp[i-1]/b_temp[i-1]
+####    step 3 (backward substitution)   ####
+u[-2] = q_temp[-1]/b_temp[-1]
+for i in range(2,n-1):          # 3*n flops
+    u[-i] = (q_temp[-i] - c[-i]*u[-i+1])/b_temp[-i]
+
+
+def v(x):       # closed-formed solution, 7 flops
+    return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
+t1 = time.time()
+total = t1-t0
+print('CPU time:',total)
+
+plt.plot(x,u)
+plt.plot(x,v(x))
+plt.legend(["Numerical solution","Closed-form solution"])
+plt.title("Grid size = %i" % n); plt.grid()
+plt.show()
+
+"""####    step 1 (decomposition)   ####
 d[0] = a[0]
 u[0] = c[0]
 for i in range(1,n):            # 3*n flops
@@ -49,6 +75,9 @@ for i in range(1,n):            # 3*n flops
     d[i] = a[i] - l[i]*u[i-1]
     u[i] = c[i]
 
+l[i] = b[i]/d[i-1]
+d[i] = a[i] - l[i]*u[i-1]
+u[i] = c[i]
 
 ####    step 2 (forward substitution)   ####
 y[0] = q[0]
@@ -59,17 +88,4 @@ for i in range(1,n):            # 2*n flops
 ####    step 3 (backward substitution)   ####
 v[-1] = y[-1]/d[-1]
 for i in range(2,n+1):          # 3*n flops
-    v[n-i] = (y[n-i]-u[n-i]*v[n-i+1])/d[n-i]
-
-
-def u(x):       # closed-formed solution, 7 flops
-    return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
-t1 = time.time()
-total = t1-t0
-print('CPU time:',total)
-
-plt.plot(x,v)
-plt.plot(x,u(x))
-plt.legend(["Numerical solution","Closed-form solution"])
-plt.title("Grid size = %i" % n); plt.grid()
-plt.show()
+    v[n-i] = (y[n-i]-u[n-i]*v[n-i+1])/d[n-i]"""

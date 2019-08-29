@@ -34,16 +34,16 @@ q = (h**2)*f(x)
 a = -1#np.ones(n)*float(input("Values of vector a (diagonal): "))
 b = 2#np.ones(n)*float(input("Values of vector b (below diagonal): "))
 c = -1#np.ones(n)*float(input("Values of vector c (over diagonal): "))
-b_temp = np.zeros(n)
+#b_temp = np.zeros(n)
+index = np.linspace(1,n,n)
+b_temp = (index+1)/index
 q_temp = np.zeros(n)
 u = np.zeros(n)
-
 t0 = time.time()
 ####    Forward sub   ####
-b_temp[0] = b
-
+#b_temp[0] = b
 for i in range(1,n):
-    b_temp[i] = b - 1/b_temp[i-1]
+    #b_temp[i] = b - 1/b_temp[i-1]
     q_temp[i] = q[i]-q_temp[i-1]*a/b_temp[i-1]
 #### Backward ####
 u[-2] = q_temp[-1]/b_temp[-1]
