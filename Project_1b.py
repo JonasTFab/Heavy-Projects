@@ -1,4 +1,4 @@
-import numpy as np, matplotlib.pyplot as plt
+import numpy as np, matplotlib.pyplot as plt, random as r
 
 def f(x):
     return 100*np.exp(-10*x)
@@ -7,6 +7,26 @@ n = int(input("Size of the matrix (10, 100 or 1000): "))
 x = np.linspace(0,1,n)
 h = 1/(n+1)
 q = (h**2)*f(x)
+
+"""def array(n):
+    arr = input("Consistent(c) or random(r) numbers on vector?: ")
+    if arr == "c" or arr == "C":
+        arr = np.ones(n)*int(input("What integer?: "))
+    elif arr == "r" or arr == "R":
+        arr_start = int(input("Smallest integer in the random interval?: "))
+        arr_end = int(input("Biggest integer in the random interval?: "))
+        arr = np.ones(n)
+        for i in range(n):
+            arr[i] = r.randint(arr_start,arr_end)
+    else:
+        try:
+            arr = np.ones(n)*int(arr)
+        except:
+            sys.exit("ERROR! You must insert a legal letter or integer.")
+    return arr
+a = array(n)
+b = array(n)
+c = array(n)"""
 
 a = np.ones(n)*float(input("Values of vector a (diagonal): "))
 b = np.ones(n)*float(input("Values of vector b (below diagonal): "))
