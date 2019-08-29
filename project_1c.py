@@ -1,10 +1,8 @@
 import numpy as np, matplotlib.pyplot as plt, random as r, time
 
+def f(x):
+    return 100 * np.exp(-10 * x)
 
-def f(x):               # 3 flops
-    return 100*np.exp(-10*x)
-
-# total 4 flops
 n = int(input("Size of the matrix (10, 100 or 1000): "))
 x = np.linspace(0,1,n)
 h = 1/(n+1)
@@ -30,7 +28,6 @@ a = array(n)
 b = array(n)
 c = array(n)"""
 
-# total 3 flops making the arrays
 a = np.ones(n)*float(input("Values of vector a (diagonal): "))
 b = np.ones(n)*float(input("Values of vector b (below diagonal): "))
 c = np.ones(n)*float(input("Values of vector c (over diagonal): "))
@@ -44,7 +41,7 @@ t0 = time.time()
 ####    step 1 (decomposition)   ####
 d[0] = a[0]
 u[0] = c[0]
-for i in range(1,n):            # 3*n flops
+for i in range(1,n):
     l[i] = b[i]/d[i-1]
     d[i] = a[i] - l[i]*u[i-1]
     u[i] = c[i]
@@ -52,18 +49,19 @@ for i in range(1,n):            # 3*n flops
 
 ####    step 2 (forward substitution)   ####
 y[0] = q[0]
-for i in range(1,n):            # 2*n flops
+for i in range(1,n):
     y[i] = q[i] - l[i]*y[i-1]
 
 
 ####    step 3 (backward substitution)   ####
 v[-1] = y[-1]/d[-1]
-for i in range(2,n+1):          # 3*n flops
+for i in range(2,n+1):
     v[n-i] = (y[n-i]-u[n-i]*v[n-i+1])/d[n-i]
 
 
-def u(x):       # closed-formed solution, 7 flops
+def u(x):       # closed-formed solution
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
+
 t1 = time.time()
 total = t1-t0
 print('CPU time:'total)
