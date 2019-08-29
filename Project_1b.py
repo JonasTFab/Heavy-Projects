@@ -10,7 +10,7 @@ x = np.linspace(0,1,n)
 h = 1/(n+1)
 q = (h**2)*f(x)
 
-"""def array(n):
+def array(n):
     arr = input("Consistent(c) or random(r) numbers on vector?: ")
     if arr == "c" or arr == "C":
         arr = np.ones(n)*int(input("What integer?: "))
@@ -28,12 +28,12 @@ q = (h**2)*f(x)
     return arr
 a = array(n)
 b = array(n)
-c = array(n)"""
+c = array(n)
 
 # total 3 flops making the arrays
-a = np.ones(n)*float(input("Values of vector a (diagonal): "))
-b = np.ones(n)*float(input("Values of vector b (below diagonal): "))
-c = np.ones(n)*float(input("Values of vector c (over diagonal): "))
+#a = np.ones(n)*float(input("Values of vector a (diagonal): "))
+#b = np.ones(n)*float(input("Values of vector b (below diagonal): "))
+#c = np.ones(n)*float(input("Values of vector c (over diagonal): "))
 d = np.ones(n)
 l = np.ones(n)
 u = np.ones(n)
@@ -66,7 +66,7 @@ def u(x):       # closed-formed solution, 7 flops
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
 t1 = time.time()
 total = t1-t0
-print('CPU time:'total)
+print('CPU time:',total)
 
 plt.plot(x,v)
 plt.plot(x,u(x))
