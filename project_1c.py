@@ -1,6 +1,5 @@
 import numpy as np, matplotlib.pyplot as plt, random as r, time
 
-
 def f(x):
     return 100 * np.exp(-10 * x)
 
@@ -62,9 +61,10 @@ for i in range(2,n+1):
 
 def u(x):       # closed-formed solution
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
+
 t1 = time.time()
 total = t1-t0
-print(total)
+print('CPU time:'total)
 
 plt.plot(x,v)
 plt.plot(x,u(x))
