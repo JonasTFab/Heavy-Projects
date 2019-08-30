@@ -17,7 +17,7 @@ def analytic(x):       # closed-formed solution, 7 flops
 def algo():
     n = int(input("Size of the matrix (10, 100 or 1000): "))
     x = np.linspace(0,1,n)
-    h = 1/(n+1)
+    h = 1/(n-1)
     q = (h**2)*f(x)
     index = np.linspace(1,n,n)
     b_temp = (index+1)/index
@@ -36,7 +36,8 @@ def algo():
         u[-i] = (q_temp[-i] - a*u[-i+1])/b_temp[-i]
     ####  Calculate error
     eps = np.log10((abs((v[1:-2]-u[1:-2])/u[1:-2])))
-    max_eps = np.max(abs(eps))
+    #max_eps = np.max(abs(eps))
+    max_eps = np.max(np.abs((v[1:-2]-u[1:-2])/u[1:-2]))
     plt.plot(u)
     plt.plot(v)
     plt.show()
