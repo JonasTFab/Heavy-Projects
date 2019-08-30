@@ -47,7 +47,7 @@ for i in range(1,n):
     q_temp[i] = q[i]-q_temp[i-1]*a/b_temp[i-1]
 #### Backward ####
 u[-2] = q_temp[-1]/b_temp[-1]
-for i in range(2,n-1):          # 3*n flops
+for i in range(2,n):          # 3*n flops
     u[-i] = (q_temp[-i] - a*u[-i+1])/b_temp[-i]
 
 

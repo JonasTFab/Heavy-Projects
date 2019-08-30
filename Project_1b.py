@@ -10,8 +10,8 @@ x = np.linspace(0,1,n)
 h = 1/(n+1)
 q = (h**2)*f(x)
 
-def array(n):
-    arr = input("Consistent(c) or random(r) numbers on vector?: ")
+def array(n, name_of_vector):
+    arr = input("Consistent(c) or random(r) numbers on vector %s ?: " % (name_of_vector))
     if arr == "c" or arr == "C":
         arr = np.ones(n)*int(input("What integer?: "))
     elif arr == "r" or arr == "R":
@@ -34,9 +34,9 @@ def array(n):
 #d = np.ones(n)
 
 ####   Initilize vectors   ####
-a = array(n)
-b = array(n)
-c = array(n)
+a = array(n, "upper diagonal")
+b = array(n, "diagonal")
+c = array(n, "lower diagonal")
 u = np.zeros(n)
 b_temp = np.zeros(n)
 q_temp = np.zeros(n)
@@ -51,7 +51,7 @@ for i in range(1,n):
     q_temp[i] = q[i]-a[i]*q_temp[i-1]/b_temp[i-1]
 ####    step 3 (backward substitution)   ####
 u[-2] = q_temp[-1]/b_temp[-1]
-for i in range(2,n-1):          # 3*n flops
+for i in range(2,n):          # 3*n flops
     u[-i] = (q_temp[-i] - c[-i]*u[-i+1])/b_temp[-i]
 
 
