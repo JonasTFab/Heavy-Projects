@@ -35,19 +35,18 @@ def algo():
     for i in range(2,n):          # 3*n flops
         u[-i] = (q_temp[-i] - a*u[-i+1])/b_temp[-i]
     ####  Calculate error
-    eps = np.log10((abs((v[1:-2]-u[1:-2])/u[1:-2])))
-    #max_eps = np.max(abs(eps))
-    max_eps = np.max(np.abs((v[1:-2]-u[1:-2])/u[1:-2]))
-    plt.plot(u)
-    plt.plot(v)
-    plt.show()
+    eps = np.log10((abs((u[1:-2]-v[1:-2])/v[1:-2])))
+    max_eps = np.max((eps))
     return max_eps
 
 
 
 #### Compute error ####
 
-err1 = algo()
-err2 = algo()
-err3 = algo()
-print(err1,err2,err3)
+e1 = algo()
+e2 = algo()
+e3 = algo()
+e4 = algo()
+e5 = algo()
+
+print(e1,e2,e3,e4,e5)
