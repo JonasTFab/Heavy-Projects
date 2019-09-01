@@ -28,10 +28,9 @@ def array(n, name_of_array):
     return arr
 
 
-# total 3 flops making the arrays
-a = -1 #np.ones(n)*float(input("Values of vector a (diagonal): "))
-b = 2 #np.ones(n)*float(input("Values of vector b (below diagonal): "))
-c = -1 #np.ones(n)*float(input("Values of vector c (over diagonal): "))
+a = -1
+b = 2
+c = -1
 #b_temp = np.zeros(n)
 
 index = np.linspace(1,n,n)
@@ -58,10 +57,10 @@ def v(x):       # closed-formed solution, 7 flops
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
 t1 = time.time()
 total = t1-t0
-print('CPU time:',total)
+print('CPU time: %.3f s' % total)
 
 plt.plot(x,u)
 plt.plot(x,v(x))
 plt.legend(["Numerical solution","Closed-form solution"])
-plt.title("Grid size = %i" % n); plt.grid()
+plt.title("Quadratic grid size: %i" % n); plt.grid()
 plt.show()
