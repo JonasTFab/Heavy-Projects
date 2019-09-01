@@ -15,7 +15,7 @@ def tridiag(n):             # tridiag matrix with 2 on diag and -1 directly belo
     A[n-1,n-1] = 2
     return A
 
-n = int(input("Size of the matrix (10, 100 or 1000): "))
+n = int(input("Size of the matrix (n=10, 100 or 1000 (warning: n=1000 takes about 2 minutes to run)): "))
 h = 1/(n+1)
 x = np.linspace(0,1,n)
 q = h**2*f(x)
@@ -32,6 +32,6 @@ def v(x):
 
 plt.plot(x,LUbacksub)
 plt.plot(x,v(x))
-plt.legend(["Numerical solution","Closed-form solution"])
-plt.grid(); plt.title("Quadratic grid size: %i" % n)
+plt.legend(["Numerical (LU) solution","Closed-form solution"])
+plt.grid(); plt.title("LU-decomposition, Quadratic grid size: %i" % n)
 plt.show()

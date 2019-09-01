@@ -27,10 +27,10 @@ def array(n, name_of_array):
             sys.exit("ERROR! You must insert a legal letter or integer.")
     return arr
 
-
-a = -1
-b = 2
-c = -1
+# total 3 flops making the arrays
+a = -1 #np.ones(n)*float(input("Values of vector a (diagonal): "))
+b = 2 #np.ones(n)*float(input("Values of vector b (below diagonal): "))
+c = -1 #np.ones(n)*float(input("Values of vector c (over diagonal): "))
 #b_temp = np.zeros(n)
 
 index = np.linspace(1,n,n)
