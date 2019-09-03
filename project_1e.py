@@ -25,7 +25,8 @@ t0 = time.time()
 init = pylib()
 LUdecomp = init.luDecomp(A)         # LU-decomp., pivot permutation, row interchange (+1/-1)
 LUbacksub = init.luBackSubst(LUdecomp[0], LUdecomp[1], q)
-print("CPU time: %.3f s" % (time.time()-t0))
+T = time.time()-t0
+print("CPU time: %.3f s" % (T))
 
 def v(x):
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
@@ -33,5 +34,5 @@ def v(x):
 plt.plot(x,LUbacksub)
 plt.plot(x,v(x))
 plt.legend(["Numerical (LU) solution","Closed-form solution"])
-plt.grid(); plt.title("LU-decomposition, Quadratic grid size: %i" % n)
+plt.grid(); plt.title("LU-decomposition, Grid size = %i, CPU time = %.3f s" % (n,T))
 plt.show()
