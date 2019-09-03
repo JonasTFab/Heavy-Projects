@@ -15,7 +15,7 @@ def analytic(x):       # closed-formed solution, 7 flops
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
 
 def algo(n):
-    x = np.linspace(0,1,n+2)[1:-1]
+    x = np.linspace(0,1,n)
     h = 1/(n+1)
     q = (h**2)*f(x)
     index = np.linspace(1,n,n)
@@ -25,11 +25,12 @@ def algo(n):
     v = analytic(x)
 
     ####    Forward sub   ####
-    for i in range(1,n):
+    for i in range(1,n):            # 3*n flops
         #b_temp[i] = b - 1/b_temp[i-1]
         q_temp[i] = q[i]-q_temp[i-1]*a/b_temp[i-1]
 
     #### Backward ####
+<<<<<<< HEAD
     u[-1] = q_temp[-1]/b_temp[-1]
     for i in range(2,n):          # 3*n flops
         u[-i] = (q_temp[-i] - a*u[-i+1])/b_temp[-i]
@@ -69,3 +70,32 @@ if __name__ == '__main__':
     ax1.set_xlabel("log10(h)"); plt.ylabel("Epsilon (relative error)")
 
     plt.show()"""
+=======
+    u[-2] = q_temp[-2]/b_temp[-2]
+    for i in range(2,n):            # 3*n flops
+        u[-i] = (q_temp[-i] - a*u[-i+1])/b_temp[-i]
+
+    ####  Calculate error ####
+    eps_inside = min(abs((u[1:-1]-v[1:-1])/v[1:-1]))
+    #div = 10/2
+    #eps_inside = abs((u[int(n/div)]-v[int(n/div)])/v[int(n/div)])
+    return h, eps_inside, time.time()
+
+#### Compute error ####
+N = 5
+n = np.logspace(1,N,N)
+#N = 300; n = 10**np.linspace(1,5,N)
+h = np.zeros(N)
+error = np.zeros(N)
+t0 = time.time()
+
+for i in range(N):
+    h[i], error[i], t1 = algo(int(n[i]))
+    print("log10(h) = %.2e        rel. error = %.2e         time = %.3f s" % \
+                                    (np.log10(h[i]),np.log10(error[i]),t1-t0), i)
+plt.loglog(h,error)
+plt.xlabel("log10(h)"); plt.ylabel("Relative error (epsilon)")
+plt.grid()
+
+plt.show()
+>>>>>>> 45ba2db61cb7014b406a51bc3a9340c035a49270
