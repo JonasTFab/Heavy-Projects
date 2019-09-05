@@ -45,14 +45,15 @@ def gen_algo(n): #general algorithm
     ####    step 2 (forward substitution)   ####
     t0 = time.time()
     b_temp[0] = b[0]
-    q_temp[0] = q[0]
+    #q_temp[0] = q[0]
     for i in range(1,n):
         b_temp[i] = b[i] - a[i]*c[i-1]/b_temp[i-1]
         q_temp[i] = q[i]-a[i]*q_temp[i-1]/b_temp[i-1]
+        print(q_temp[i], q[i])
 
 
     ####    step 3 (backward substitution)   ####
-    u[-2] = q_temp[-1]/b_temp[-1]
+    u[-1] = 0#q_temp[-1]/b_temp[-1]
     for i in range(2,n):          # 3*n flops
         u[-i] = (q_temp[-i] - c[-i]*u[-i+1])/b_temp[-i]
     t1 = time.time()
@@ -67,15 +68,15 @@ def v(x):       # closed-formed solution, 7 flops
 
 
 #### make plots #####
-u_10,x_10 = gen_algo(1000)
-u_100,x_100 = gen_algo(10000)
-u_1000,x_1000 = gen_algo(100000)
-u_1000,x_1000 = gen_algo(1000000)
+u_10,x_10 = gen_algo(10)
+#u_100,x_100 = gen_algo(100)
+#u_1000,x_1000 = gen_algo(100000)
+#u_1000,x_1000 = gen_algo(1000000)
 x_vec = np.linspace(0,1,1000)
 
 plt.plot(x_10,u_10,label = 'n=10')
-plt.plot(x_100,u_100,label = 'n=100')
-plt.plot(x_1000,u_1000,label = 'n=1000')
+#plt.plot(x_100,u_100,label = 'n=100')
+#plt.plot(x_1000,u_1000,label = 'n=1000')
 
 plt.plot(x_vec,v(x_vec), label = 'Closed-form')
 plt.title("Closed-form/numerical comparison");
@@ -83,7 +84,7 @@ plt.xlabel('x')
 plt.ylabel('f(x)')
 plt.legend()
 plt.grid()
-#plt.show()
+plt.show()
 
 
 """
