@@ -24,6 +24,7 @@ def algo(n):
     u = np.zeros(n)
     v = analytic(x)
 
+    t0 = time.time()
     ####    Forward sub   ####
     for i in range(1,n):            # 3*n flops
         #b_temp[i] = b - 1/b_temp[i-1]
@@ -36,33 +37,33 @@ def algo(n):
         u[-i] = (q_temp[-i] - a * u[-i+1]) / b_temp[-i]
 
     ####  Calculate error ####
-    eps_inside = abs((u[1:-1] - v[1:-1]) / v[1:-1])
-    #div = 10/2
-    #eps_inside = abs((u[int(n/div)]-v[int(n/div)])/v[int(n/div)])
-    eps = min(np.log10(eps_inside))
-    print(min(eps_inside))
-
-    return h, eps, time.time()
+    eps_inside = min(abs((u[1:-1]-v[1:-1])/v[1:-1]))
+    eps = abs(np.log10(eps_inside))
+    return h, eps_inside, time.time()-t0
 
 #### Compute error ####
-N = 2
+N = 7
 n = np.logspace(1,N,N)
-#N = 300; n = 10**np.linspace(1,5,N)
 h = np.zeros(N)
 error = np.zeros(N)
-t0 = time.time()
 
-for i in range(0,N):
-    h[i], error[i], t1 = algo(int(n[i]))
-    #plt.plot(v[1:-1])
-    #plt.show()
+
+"""for i in range(N):
+    h[i], error[i], t1, = algo(int(n[i]))
     print("log10(h) = %.2e        rel. error = %.2e         time = %.3f s" % \
-                                    (np.log10(h[i]),(error[i]),t1-t0))
+                                    (np.log10(h[i]),np.log10(error[i]),t1))"""
+
+for i in range(N):
+    h[i], error[i], t1, = algo(int(n[i]))
+    print("%.2e        %.2e         %.3f s" % \
+                                    (np.log10(h[i]),np.log10(error[i]),t1))
 
 
 
-plt.plot(np.log10(h),error)
-plt.xlabel("log10(h)"); plt.ylabel("Relative error (epsilon)")
+
+plt.loglog(h,error)
+plt.title("Relative error")
+plt.xlabel("log10(h)"); plt.ylabel("Epsilon")
 plt.grid()
 
 plt.show()
