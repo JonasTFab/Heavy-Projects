@@ -15,24 +15,46 @@ def tridiag(n):             # tridiag matrix with 2 on diag and -1 directly belo
     A[n-1,n-1] = 2
     return A
 
-n = int(input("Size of the matrix (n=10, 100 or 1000 (warning: n=1000 takes about 2 minutes to run)): "))
-h = 1/(n+1)
-x = np.linspace(0,1,n)
-q = h**2*f(x)
-A = tridiag(n)
+#n = int(input("Size of the matrix (n=10, 100 or 1000 (warning: n=1000 takes about 2 minutes to run)): "))
 
-t0 = time.time()
-init = pylib()
-LUdecomp = init.luDecomp(A)         # LU-decomp., pivot permutation, row interchange (+1/-1)
-LUbacksub = init.luBackSubst(LUdecomp[0], LUdecomp[1], q)
-T = time.time()-t0
-print("CPU time: %.3f s" % (T))
+def LU_decomp(n):
+    h = 1/(n-1)
+    x = np.linspace(0,1,n)
+    q = h**2*f(x)
+    A = tridiag(n)
+
+    t0 = time.time()
+    init = pylib()
+    LUdecomp = init.luDecomp(A)         # LU-decomp., pivot permutation, row interchange (+1/-1)
+    LUbacksub = init.luBackSubst(LUdecomp[0], LUdecomp[1], q)
+    T = time.time()-t0
+    return LUbacksub, T, x
 
 def v(x):
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
+X = np.linspace(0,1,1000)
 
-plt.plot(x,LUbacksub)
-plt.plot(x,v(x))
-plt.legend(["Numerical (LU) solution","Closed-form solution"])
-plt.grid(); plt.title("LU-decomposition, Grid size = %i, CPU time = %.3f s" % (n,T))
-plt.show()
+
+def average_after_10_runs(n):
+    N = 10
+    time = np.zeros(N)
+    for i in range(N):
+        time[i] = LU_decomp(n)[1]
+    avg_time = sum(time)/N
+    return avg_time
+
+#m = 10                  # WARNING: if n=1000, the algorithm should only run if you got plenty of time to spare
+#avg_time_n10 = average_after_10_runs(m)
+#print("Average time taken after 10 numerical calculations with n=%i: %.7f s" % (m,avg_time_n10))
+
+"""LU_10, t10, x10 = LU_decomp(10); print("Time for n=10: %.4f s" % t10)
+LU_100, t100, x100 = LU_decomp(100); print("Time for n=100: %.4f s" % t100)
+#LU_1000, t1000, x1000 = LU_decomp(1000); print("Time for n=1000: %.4f s" % t1000)
+
+plt.plot(x10,LU_10)
+plt.plot(x100,LU_100)
+#plt.plot(x1000,LU_1000)
+plt.plot(X,v(X))
+plt.legend(["LU(n=10)","LU(n=100)","LU(n=1000)","Closed-form solution"])
+plt.grid(); plt.title("LU-decomposition/closed-form comparison")
+plt.show()"""
