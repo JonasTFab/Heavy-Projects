@@ -10,3 +10,5 @@ project_1d.py is where we compute the relative error for different step length h
 And finally the last python file project_1e.py is where we compare our logarithm with the brute force algorithm from Morten's library. This algorithm uses LU-decomposition to solve the equation Ax=b.
 
 computationalLib.py is the python library made by Morten Hjorth-Jensen. This is the location of the LU-decomposition we're using in project_1e.py.
+
+This repository also contains some other files which is not directly important to project 1.
