@@ -28,11 +28,10 @@ def array(n, name_of_array):
     return arr
 
 def gen_algo(n): #general algorithm
-    t0 = time.time()
     ####   Initilize vectors   ####
     #n = int(input("Size of the matrix (10, 100 or 1000): "))
     x = np.linspace(0,1,n)
-    h = 1/(n+1)
+    h = 1/(n)
     q = (h**2)*f(x)
     a = np.ones(n)*-1#array(n, "upper diagonal")
     b = np.ones(n)*2#array(n, "diagonal")
@@ -69,14 +68,14 @@ def v(x):       # closed-formed solution, 7 flops
 
 #### make plots #####
 u_10,x_10 = gen_algo(10)
-#u_100,x_100 = gen_algo(100)
-#u_1000,x_1000 = gen_algo(100000)
+u_100,x_100 = gen_algo(100)
+u_1000,x_1000 = gen_algo(100000)
 #u_1000,x_1000 = gen_algo(1000000)
 x_vec = np.linspace(0,1,1000)
 
 plt.plot(x_10,u_10,label = 'n=10')
-#plt.plot(x_100,u_100,label = 'n=100')
-#plt.plot(x_1000,u_1000,label = 'n=1000')
+plt.plot(x_100,u_100,label = 'n=100')
+plt.plot(x_1000,u_1000,label = 'n=1000')
 
 plt.plot(x_vec,v(x_vec), label = 'Closed-form')
 plt.title("Closed-form/numerical comparison");
@@ -88,16 +87,5 @@ plt.show()
 
 
 """
-program output 1b
-CPU time: 2e-03 s
-Grid size: 1000
-
-CPU time: 2e-02 s
-Grid size: 10000
-
-CPU time: 2e-01 s
-Grid size: 100000
-
-CPU time: 2e+00 s
-Grid size: 1000000
+produce some selected results
 """

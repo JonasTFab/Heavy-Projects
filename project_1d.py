@@ -12,34 +12,34 @@ b = 2#np.ones(n)*float(input("Values of vector b (below diagonal): "))
 c = -1#np.ones(n)*float(input("Values of vector c (over diagonal): "))
 #b_temp = np.zeros(n)
 def analytic(x):       # closed-formed solution, 7 flops
-    return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
+    return 1 - (1 - np.exp( - 10))*x - np.exp(-10*x)
 
 def algo(n):
     x = np.linspace(0,1,n)
-    h = 1/(n+1)
+
+    h = 1/(n)
     q = (h**2)*f(x)
     index = np.linspace(1,n,n)
+    print(index)
     b_temp = (index+1)/index
     #b_temp = (index-1)/index
     q_temp = np.zeros(n)
-    q_temp[0] = q[0]
+    #q_temp[0] = q[0]
     u = np.zeros(n)
     v = analytic(x)
 
     t0 = time.time()
     ####    Forward sub   ####
-    for i in range(1,n):            # 3*n flops
-        #b_temp[i] = b - 1/b_temp[i-1]
-        q_temp[i] = q[i] - (q_temp[i-1] * a) / b_temp[i-1]
-        #q_temp[i] = q[i]+b_temp[i]*q_temp[i-1]
-
-    #### Backward ####
-    u[-1] = 0
-    #u[-1] = q_temp[-1]/b_temp[-1]
     for i in range(2,n):            # 3*n flops
-        u[-i] = (q_temp[-i] - a * u[-i+1]) / b_temp[-i]
+        #b_temp[i] = b - 1/b_temp[i-1]
+        q_temp[i] = q[i] + (q_temp[i-1]) / b_temp[i-1]
+        #q_temp[i] = q[i]+b_temp[i]*q_temp[i-1]
+    #### Backward ####
+    u[-2] = q_temp[-2]/b_temp[-2]
+    for i in range(2,n):            # 3*n flops
+        u[-i] = (q_temp[-i] + u[-i+1]) / b_temp[-i]
         #u[-i-1] = b_temp[i]*(q_temp[i-1]+u[i])
-
+    u[-1] = 0
     ####  Calculate error ####
     eps_inside = min(abs((u[1:-1]-v[1:-1])/v[1:-1]))
     eps = abs(np.log10(eps_inside))
@@ -62,8 +62,8 @@ plt.ylabel('f(x)')
 plt.legend()
 plt.grid()
 plt.show()
-#### Compute error ####
-"""N = 6
+"""#### Compute error ####
+N = 7
 n = np.logspace(1,N,N)
 h = np.zeros(N)
 error = np.zeros(N)
