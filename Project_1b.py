@@ -30,8 +30,8 @@ def array(n, name_of_array):
 def gen_algo(n): #general algorithm
     ####   Initilize vectors   ####
     #n = int(input("Size of the matrix (10, 100 or 1000): "))
-    x = np.linspace(0,1,n)
-    h = 1/(n)
+    x = np.linspace(0,1,n+2)[1:-1]
+    h = 1/(n+1)
     q = (h**2)*f(x)
     a = np.ones(n)*-1#array(n, "upper diagonal")
     b = np.ones(n)*2#array(n, "diagonal")
@@ -44,22 +44,19 @@ def gen_algo(n): #general algorithm
     ####    step 2 (forward substitution)   ####
     t0 = time.time()
     b_temp[0] = b[0]
-    #q_temp[0] = q[0]
+    q_temp[0] = q[0]
     for i in range(1,n):
         b_temp[i] = b[i] - a[i]*c[i-1]/b_temp[i-1]
         q_temp[i] = q[i]-a[i]*q_temp[i-1]/b_temp[i-1]
-        print(q_temp[i], q[i])
 
 
     ####    step 3 (backward substitution)   ####
-    u[-1] = 0#q_temp[-1]/b_temp[-1]
-    for i in range(2,n):          # 3*n flops
+    u[-1] = q_temp[-1]/b_temp[-1]
+    for i in range(2,n+1):          # 3*n flops
         u[-i] = (q_temp[-i] - c[-i]*u[-i+1])/b_temp[-i]
     t1 = time.time()
     total = t1-t0
-    print('CPU time: %.5g s' % total)
-    print('Grid size:',n)
-    return u,x
+    return u,x,total
 
 def v(x):       # closed-formed solution, 7 flops
     return 1 - (1-np.exp(-10))*x - np.exp(-10*x)
@@ -67,9 +64,9 @@ def v(x):       # closed-formed solution, 7 flops
 
 
 #### make plots #####
-u_10,x_10 = gen_algo(10)
-u_100,x_100 = gen_algo(100)
-u_1000,x_1000 = gen_algo(100000)
+u_10,x_10,t1 = gen_algo(10)
+u_100,x_100,t2 = gen_algo(100)
+u_1000,x_1000,t3 = gen_algo(100000)
 #u_1000,x_1000 = gen_algo(1000000)
 x_vec = np.linspace(0,1,1000)
 
@@ -85,7 +82,24 @@ plt.legend()
 plt.grid()
 plt.show()
 
+#### TIMER ####
+"""k = 0
+for i in range(3,7):
+    for j in range(11):
+        u,x,t = gen_algo(10**i)
+        k += t
+    average_time = k/10
+    print(average_time)
+    print('Grid size:',i,'x',i)"""
 
 """
 produce some selected results
+0.0027681589126586914
+Grid size: 3 x 3
+0.02973027229309082
+Grid size: 4 x 4
+0.3003588438034058
+Grid size: 5 x 5
+3.0235891819000242
+Grid size: 6 x 6
 """
