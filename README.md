@@ -11,4 +11,4 @@ And finally the last python file project_1e.py is where we compare our logarithm
 
 computationalLib.py is the python library made by Morten Hjorth-Jensen. This is the location of the LU-decomposition we're using in project_1e.py.
 
-This repository also contains some other minor files which is not necessarily directly important to project 1.
+This repository also contains some other minor files which is not necessarily important to project 1.
