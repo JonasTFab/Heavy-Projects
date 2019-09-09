@@ -4,12 +4,6 @@ import numpy as np, matplotlib.pyplot as plt, random as r, time
 def f(x):               # 3 flops
     return 100*np.exp(-10*x)
 
-# total 4 flops
-#n = int(input("Size of the matrix (10, 100 or 1000): "))
-#x = np.linspace(0,1,n)
-#h = 1/(n+1)
-#q = (h**2)*f(x)
-
 def array(n, name_of_array):
     arr = input("Consistent(c) or random(r) numbers on vector %s ?: " % (name_of_array))
     if arr == "c" or arr == "C":
@@ -45,14 +39,14 @@ def gen_algo(n): #general algorithm
     t0 = time.time()
     b_temp[0] = b[0]
     q_temp[0] = q[0]
-    for i in range(1,n):
+    for i in range(1,n):                    # 6*n flops
         b_temp[i] = b[i] - a[i]*c[i-1]/b_temp[i-1]
         q_temp[i] = q[i]-a[i]*q_temp[i-1]/b_temp[i-1]
 
 
     ####    step 3 (backward substitution)   ####
     u[-1] = q_temp[-1]/b_temp[-1]
-    for i in range(2,n+1):          # 3*n flops
+    for i in range(2,n+1):                  # 3*n flops
         u[-i] = (q_temp[-i] - c[-i]*u[-i+1])/b_temp[-i]
     t1 = time.time()
     total = t1-t0
@@ -63,24 +57,26 @@ def v(x):       # closed-formed solution, 7 flops
 
 
 
-#### make plots #####
-u_10,x_10,t1 = gen_algo(10)
-u_100,x_100,t2 = gen_algo(100)
-u_1000,x_1000,t3 = gen_algo(100000)
-#u_1000,x_1000 = gen_algo(1000000)
-x_vec = np.linspace(0,1,1000)
+#### make plots ####
+k = 0
+for i in range(1,7):
+    for j in range(10):
+        u,x,t = gen_algo(10**i)
+        k += t
+    average_time = k/10
+    print("Average time (general case) with grid size 10^%i x 10^%i:  %.4f s"\
+                                % (i, i, average_time))
+    plt.plot(x,u,label=('n=10^%i' % i))
 
-plt.plot(x_10,u_10,label = 'n=10')
-plt.plot(x_100,u_100,label = 'n=100')
-plt.plot(x_1000,u_1000,label = 'n=1000')
-
-plt.plot(x_vec,v(x_vec), label = 'Closed-form')
-plt.title("Closed-form/numerical comparison");
-plt.xlabel('x')
-plt.ylabel('f(x)')
-plt.legend()
-plt.grid()
+x_an = np.linspace(0,1,30)
+plt.plot(x_an,v(x_an), "r.", label='Closed-form')
+plt.title("Numerical/closed-form comparison (general case)")
+plt.xlabel('x'); plt.ylabel('u(x)')
+plt.legend(); plt.grid()
 plt.show()
+
+
+
 
 #### TIMER ####
 """k = 0
