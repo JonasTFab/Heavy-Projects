@@ -1,1 +1,5 @@
+This file contains results from the general case code
 
+Time for n=10:      0.0000 s
+Time for n=100:     0.1546 s
+Time for n=1000:    139.3167 s
