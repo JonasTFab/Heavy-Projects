@@ -1,1 +1,8 @@
+This file contains results from the special case code
 
+Average time (special case running 50 times) with grid size 10^1 x 10^1:  0.0000 s
+Average time (special case running 50 times) with grid size 10^2 x 10^2:  0.0002 s
+Average time (special case running 50 times) with grid size 10^3 x 10^3:  0.0021 s
+Average time (special case running 50 times) with grid size 10^4 x 10^4:  0.0174 s
+Average time (special case running 50 times) with grid size 10^5 x 10^5:  0.1802 s
+Average time (special case running 50 times) with grid size 10^6 x 10^6:  1.7545 s
