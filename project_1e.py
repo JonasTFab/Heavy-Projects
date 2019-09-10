@@ -49,7 +49,8 @@ def compare_methods(n):
 #diff100 = max(abs(compare_methods(100)))       # 8.99280649946e-15
 #diff1000 = max(abs(compare_methods(1000)))     # 1.66977542904e-13
 
-#m = 10                  # WARNING: if n=1000, the algorithm should only run if you got plenty of time to spare
+
+#m = 10                  # WARNING: if m=1000, the algorithm should only run if you got plenty of time to spare
 #avg_time_n10 = average_after_10_runs(m)
 #print("Average time taken after 10 numerical calculations with n=%i: %.7f s" % (m,avg_time_n10))
 
