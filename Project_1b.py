@@ -59,13 +59,14 @@ def v(x):       # closed-formed solution, 7 flops
 
 #### make plots ####
 k = 0
+steps = 50
 for i in range(1,7):
-    for j in range(10):
+    for j in range(steps):
+        print("%.1f %% finished" % (j/steps*100), end="\r")
         u,x,t = gen_algo(10**i)
         k += t
-    average_time = k/10
-    print("Average time (general case) with grid size 10^%i x 10^%i:  %.4f s"\
-                                % (i, i, average_time))
+    average_time = k/steps
+    print("Average time (general case running %i times) with grid size 10^%i x 10^%i:  %.4f s" % (steps, i, i, average_time))
     plt.plot(x,u,label=('n=10^%i' % i))
 
 x_an = np.linspace(0,1,30)

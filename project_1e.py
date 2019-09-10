@@ -50,17 +50,21 @@ def compare_methods(n):
 #diff1000 = max(abs(compare_methods(1000)))     # 1.66977542904e-13
 
 
-#m = 10                  # WARNING: if m=1000, the algorithm should only run if you got plenty of time to spare
-#avg_time_n10 = average_after_10_runs(m)
-#print("Average time taken after 10 numerical calculations with n=%i: %.7f s" % (m,avg_time_n10))
+# WARNING: if m=1000, the algorithm should only run if you got plenty of time to spare
+#avg_time_n10 = average_after_10_runs(10)
+#avg_time_n100 = average_after_10_runs(100)
+#avg_time_n1000 = average_after_10_runs(1000)
+#print("Average time taken after 10 numerical calculations with n=10:     %.4f s" % avg_time_n10)
+#print("Average time taken after 10 numerical calculations with n=100:    %.4f s" % avg_time_n100)
+#print("Average time taken after 10 numerical calculations with n=1000:   %.2f s" % avg_time_n1000)
 
-LU_10, t10, x10 = LU_decomp(10); print("Time for n=10: %.4f s" % t10)
-LU_100, t100, x100 = LU_decomp(100); print("Time for n=100: %.4f s" % t100)
-#LU_1000, t1000, x1000 = LU_decomp(1000); print("Time for n=1000: %.4f s" % t1000)
+LU_10, t10, x10 = LU_decomp(10); print("Time for n=10:      %.4f s" % t10)
+LU_100, t100, x100 = LU_decomp(100); print("Time for n=100:     %.4f s" % t100)
+LU_1000, t1000, x1000 = LU_decomp(1000); print("Time for n=1000:    %.2f s" % t1000)
 
 plt.plot(x10,LU_10,label="LU(n=10)")
 plt.plot(x100,LU_100,label="LU(n=100)")
-#plt.plot(x1000,LU_1000,label="LU(n=1000)")
+plt.plot(x1000,LU_1000,label="LU(n=1000)")
 X = np.linspace(0,1,30)
 plt.plot(X,v(X),"r.",label="Closed-form solution")
 plt.legend()
