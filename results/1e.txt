@@ -1,5 +1,9 @@
-This file contains results from the general case code
+This file contains results from algorithm using LU-decomposition
+
+Average time taken after 10 numerical calculations with n=10:   0.0004 s
+Average time taken after 10 numerical calculations with n=100:  0.1325 s
+Average time taken after 10 numerical calculations with n=1000: 140.53 s
 
 Time for n=10:      0.0000 s
 Time for n=100:     0.1546 s
-Time for n=1000:    139.3167 s
+Time for n=1000:    139.31 s
