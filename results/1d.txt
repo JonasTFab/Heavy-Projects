@@ -1,1 +1,9 @@
+This file contains results from the relative error code
 
+log10(h) = -1.04        rel. error =  -1.18         time = 0.0000 s
+log10(h) = -2.00        rel. error =  -3.09         time = 0.0000 s
+log10(h) = -3.00        rel. error =  -5.08         time = 0.0010 s
+log10(h) = -4.00        rel. error =  -7.08         time = 0.0160 s
+log10(h) = -5.00        rel. error =  -9.08         time = 0.1566 s
+log10(h) = -6.00        rel. error = -10.16         time = 1.6496 s
+log10(h) = -7.00        rel. error =  -9.09         time = 16.5501 s
