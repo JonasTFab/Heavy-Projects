@@ -9,7 +9,6 @@
 
 import numpy as np, matplotlib.pyplot as plt, random as r, time
 
-
 def f(x):               # 3 flops
     return 100*np.exp(-10*x)
 
@@ -48,7 +47,7 @@ def algo(n):
     return h, eps_inside
 
 #### Compute error ####
-N = 1000
+"""N = 1000
 N_times = 10
 n = np.linspace(N_times*1,N_times*N,N)
 h = np.zeros(N)
@@ -59,3 +58,10 @@ for i in range(N):
 
 plt.loglog(h,eps_ins)
 plt.show()
+"""
+
+t0 = time.time()
+for i in range(10):
+    t1 = time.time()
+    print(t1,t0,t1-t0)
+    I = i
